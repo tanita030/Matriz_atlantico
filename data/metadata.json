@@ -1,0 +1,45 @@
+{
+  "description": "Monthly statistics of North Atlantic Argo observations",
+  "period": {
+    "start": "2016",
+    "end": "2026"
+  },
+  "depth_ranges": [
+    {
+      "min": 0,
+      "max": 200,
+      "label": "0–200 m"
+    },
+    {
+      "min": 200,
+      "max": 500,
+      "label": "200–500 m"
+    },
+    {
+      "min": 500,
+      "max": 1000,
+      "label": "500–1000 m"
+    },
+    {
+      "min": 1000,
+      "max": 1500,
+      "label": "1000–1500 m"
+    },
+    {
+      "min": 1500,
+      "max": 2000,
+      "label": "1500–2000 m"
+    }
+  ],
+  "temperature": {
+    "min": -0.56,
+    "max": 26.9
+  },
+  "salinity": {
+    "min": 32.116,
+    "max": 37.072
+  },
+  "total_observations": 520736,
+  "total_profiles": 4808,
+  "generated_from_parquets": 127
+}

@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Explorador interactivo de temperatura y salinidad del Atlántico Norte a partir de observaciones Argo agregadas mensualmente.">
+  <title>North Atlantic — Ocean Data Explorer</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin="anonymous">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="hero">
+    <div class="eyebrow">ARGO · ATLÁNTICO NORTE · 2016—2026</div>
+    <h1>Ocean Data Explorer</h1>
+    <p>Explora cómo cambian la temperatura y la salinidad con el tiempo y la profundidad.</p>
+  </header>
+
+  <main>
+    <section class="map-section">
+      <div class="section-head">
+        <div>
+          <span class="kicker">01 · ESPACIO</span>
+          <h2>Selecciona una zona</h2>
+        </div>
+        <div class="selection-readout" id="selectionReadout">0 celdas seleccionadas</div>
+      </div>
+      <div class="map-shell">
+        <div id="map" aria-label="Mapa interactivo del Atlántico Norte"></div>
+        <div class="map-overlay">
+          <div class="region-switch" role="group" aria-label="Región del Atlántico Norte">
+            <button data-region="manual" class="active">MANUAL</button>
+            <button data-region="west">OCCIDENTAL</button>
+            <button data-region="central">CENTRAL</button>
+            <button data-region="east">ORIENTAL</button>
+          </div>
+          <button id="clearSelection" class="ghost-btn">Limpiar selección</button>
+        </div>
+        <div class="data-note" id="spatialNote">Los datos web suministrados están agregados por mes y profundidad; no contienen latitud/longitud por observación. La selección espacial se conserva como contexto visual y no inventa valores por celda.</div>
+      </div>
+    </section>
+
+    <section class="controls" aria-label="Controles de visualización">
+      <div class="control-group">
+        <span class="kicker">02 · VARIABLE</span>
+        <div class="segmented" id="variableControl">
+          <button data-variable="temperature" class="active">TEMPERATURA</button>
+          <button data-variable="salinity">SALINIDAD</button>
+        </div>
+      </div>
+      <div class="control-group depth-control">
+        <div class="depth-top"><span class="kicker">03 · PROFUNDIDAD</span><strong id="depthLabel">0–200 m</strong></div>
+        <input id="depthSlider" type="range" min="0" max="4" value="0" step="1" aria-label="Rango de profundidad">
+        <div class="depth-scale"><span>0 m</span><span>200 m</span><span>500 m</span><span>1000 m</span><span>1500 m</span><span>2000 m</span></div>
+      </div>
+    </section>
+
+    <section class="matrix-section">
+      <div class="section-head matrix-head">
+        <div>
+          <span class="kicker">04 · TIEMPO</span>
+          <h2 id="matrixTitle">Temperatura · 0–200 m</h2>
+          <p id="matrixContext">Atlántico Norte · agregación mensual · 2016—2026</p>
+        </div>
+        <div class="legend-wrap" id="legendWrap"></div>
+      </div>
+      <div id="matrix" class="matrix" aria-label="Matriz temporal de puntos"></div>
+    </section>
+
+    <section class="method-strip">
+      <div><strong id="statObs">—</strong><span>observaciones</span></div>
+      <div><strong id="statProfiles">—</strong><span>perfiles</span></div>
+      <div><strong id="statPeriod">2016—2026</strong><span>periodo</span></div>
+      <div><strong>Mensual</strong><span>resolución</span></div>
+    </section>
+
+    <nav class="bottom-nav" aria-label="Información">
+      <button data-panel="visual" class="info-button"><span class="icon">◌</span><span>Visualización</span></button>
+      <button data-panel="limits" class="info-button"><span class="icon">△</span><span>Limitaciones</span></button>
+      <button data-panel="source" class="info-button"><span class="icon">□</span><span>Fuente</span></button>
+      <button data-panel="filters" class="info-button"><span class="icon">≡</span><span>Filtros</span></button>
+    </nav>
+  </main>
+
+  <div id="infoPanel" class="info-panel" aria-hidden="true">
+    <div class="panel-card">
+      <button id="closePanel" class="close" aria-label="Cerrar">×</button>
+      <div id="panelContent"></div>
+    </div>
+  </div>
+
+  <div id="tooltip" class="tooltip" role="status" aria-live="polite"></div>
+
+  <footer>Práctica 1 · Visualització de dades · Explorador oceanogràfic</footer>
+
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/d3@7/dist/d3.min.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
